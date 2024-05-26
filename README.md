@@ -24,7 +24,7 @@
 
 ## Description
 
-API REST simple para gestionar una colección de libros...
+Simple REST API to manage a collection of books...
 
 ## Installation
 
@@ -57,6 +57,10 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Documentation
+
+After running the application, enter the docs path to access the API documentation.
 
 ## Support
 
