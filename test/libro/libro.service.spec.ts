@@ -53,16 +53,20 @@ describe('LibroService', () => {
     jest.spyOn(repository, 'save').mockResolvedValue(oneLibro);
     expect(await service.create(oneLibro)).toBe(oneLibro);
   });
-  /*..
+
   it('should update a book', async () => {
-    jest.spyOn(repository, 'update').mockResolvedValue({ affected: 1 });
+    jest
+      .spyOn(repository, 'update')
+      .mockResolvedValue({ generatedMaps: [], raw: [], affected: 1 });
     expect(
       await service.update(1, { titulo: 'Updated Libro' }),
     ).toBeUndefined();
   });
 
   it('should delete a book', async () => {
-    jest.spyOn(repository, 'delete').mockResolvedValue({ affected: 1 });
+    jest
+      .spyOn(repository, 'delete')
+      .mockResolvedValue({ raw: [], affected: 1 });
     expect(await service.remove(1)).toBeUndefined();
-  });*/
+  });
 });

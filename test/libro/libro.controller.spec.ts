@@ -46,7 +46,7 @@ describe('LibroController', () => {
   });
 
   it('should get one book by id', async () => {
-    expect(await controller.findOne('1')).toBe(oneLibro);
+    expect(await controller.findOne(1)).toBe(oneLibro);
   });
 
   it('should create a new book', async () => {
@@ -55,11 +55,11 @@ describe('LibroController', () => {
 
   it('should update a book', async () => {
     expect(
-      await controller.update('1', { titulo: 'Updated Libro' }),
+      await controller.update(1, { titulo: 'Updated Libro' }),
     ).toBeUndefined();
   });
 
   it('should delete a book', async () => {
-    expect(await controller.remove('1')).toBeUndefined();
+    expect(await controller.remove(1)).toBeUndefined();
   });
 });
