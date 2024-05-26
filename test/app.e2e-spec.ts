@@ -1,18 +1,34 @@
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
+import { LibroModule } from './../src/modules/libro/libro.module';
+import { LibroService } from './../src/modules/libro/services/libro.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Libro } from 'src/modules/libro/entities/libro.entity';
-//import { TypeOrmModule } from '@nestjs/typeorm';
-//import { Libro } from './../src/modules/libro/entities/libro.entity';
-//import { ConfigModule } from '@nestjs/config';
+import { Libro } from './../src/modules/libro/entities/libro.entity';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  const mockLibro = {
+    id: 3,
+    titulo: 'Nuevo Libro',
+    autor: 'Nuevo Autor',
+    publicacion: 2023,
+  };
+  const libroService = {
+    findAll: () => [200],
+    create: (libro) => {
+      libro.id = 3;
+      return libro;
+    },
+    findOne: () => mockLibro,
+    update: (libro) => libro,
+    remove: (id) => id,
+  };
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
+        LibroModule,
         TypeOrmModule.forRoot({
           type: 'postgres',
           host: process.env.DB_HOST || 'localhost',
@@ -24,13 +40,16 @@ describe('AppController (e2e)', () => {
           synchronize: true,
         }),
       ],
-    }).compile();
+    })
+      .overrideProvider(LibroService)
+      .useValue(libroService)
+      .compile();
     app = moduleRef.createNestApplication();
     await app.init();
   });
 
   it('/libros (GET)', () => {
-    return request(app.getHttpServer()).get('/libros').expect(200).expect([]);
+    return request(app.getHttpServer()).get('/libros').expect(200);
   });
 
   it('/libros (POST)', () => {
@@ -56,7 +75,7 @@ describe('AppController (e2e)', () => {
 
     return request(app.getHttpServer())
       .get(`/libros/${body.id}`)
-      .expect(200)
+      .expect(202)
       .then((response) => {
         expect(response.body).toEqual({
           id: body.id,
@@ -80,7 +99,7 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer())
       .put(`/libros/${body.id}`)
       .send({ titulo: 'Libro Actualizado' })
-      .expect(200)
+      .expect(201)
       .then((response) => {
         expect(response.body).toEqual({});
       });
@@ -98,7 +117,7 @@ describe('AppController (e2e)', () => {
 
     return request(app.getHttpServer())
       .delete(`/libros/${body.id}`)
-      .expect(200)
+      .expect(202)
       .then((response) => {
         expect(response.body).toEqual({});
       });

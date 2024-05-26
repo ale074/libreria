@@ -24,7 +24,7 @@
 
 ## Description
 
-Simple REST API to manage a collection of books...
+Simple REST API to manage a collection of books, Before starting, remember to have Node Js installed from version 20 upwards...
 
 ## Installation
 
@@ -69,7 +69,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## Stay in touch
 
 - Author - [Alejandro Vergara]
-- linkedin - [@Alejandro Vergara](www.linkedin.com/in/alejandro-vergara-álvarez-5a66531bb)
+- linkedin - [@Alejandro Vergara](https://www.linkedin.com/in/alejandro-vergara-álvarez-5a66531bb)
 
 ## License
 
