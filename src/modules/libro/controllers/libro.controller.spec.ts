@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { LibroController } from 'src/modules/libro/controllers/libro.controller';
-import { LibroService } from 'src/modules/libro/services/libro.service';
+import { LibroController } from './libro.controller';
+import { LibroService } from '../services/libro.service';
 
 const libroArray = [
   { id: 1, titulo: 'Libro 1', autor: 'Autor 1', publicacion: 2021 },
@@ -16,6 +16,7 @@ const oneLibro = {
 
 describe('LibroController', () => {
   let controller: LibroController;
+  let service: LibroService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -35,6 +36,7 @@ describe('LibroController', () => {
     }).compile();
 
     controller = module.get<LibroController>(LibroController);
+    service = module.get<LibroService>(LibroService);
   });
 
   it('should be defined', () => {

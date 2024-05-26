@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Libro } from 'src/modules/libro/entities/libro.entity';
-import { LibroService } from 'src/modules/libro/services/libro.service';
 import { Repository } from 'typeorm';
+import { LibroService } from './libro.service';
+import { Libro } from '../entities/libro.entity';
 
 const libroArray = [
   { id: 1, titulo: 'Libro 1', autor: 'Autor 1', publicacion: 2021 },
@@ -46,6 +46,7 @@ describe('LibroService', () => {
 
   it('should get one book by id', async () => {
     jest.spyOn(repository, 'findOne').mockResolvedValue(oneLibro);
+    jest.spyOn(repository, 'findOneBy').mockResolvedValue(oneLibro);
     expect(await service.findOne(1)).toBe(oneLibro);
   });
 

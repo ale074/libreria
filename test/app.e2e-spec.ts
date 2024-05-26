@@ -1,31 +1,31 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Libro } from 'src/modules/libro/entities/libro.entity';
+//import { TypeOrmModule } from '@nestjs/typeorm';
+//import { Libro } from './../src/modules/libro/entities/libro.entity';
+//import { ConfigModule } from '@nestjs/config';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
       imports: [
-        AppModule,
         TypeOrmModule.forRoot({
           type: 'postgres',
-          host: 'localhost',
-          port: 5432,
-          username: 'your_username',
-          password: 'your_password',
-          database: 'libreria_test',
+          host: process.env.DB_HOST || 'localhost',
+          port: +process.env.DB_PORT || 5432,
+          username: process.env.DB_USERNAME || 'postgres',
+          password: process.env.DB_PASSWORD || 'Alejo074',
+          database: process.env.DB_DATABASE || 'libreria',
           entities: [Libro],
           synchronize: true,
         }),
       ],
     }).compile();
-
-    app = moduleFixture.createNestApplication();
+    app = moduleRef.createNestApplication();
     await app.init();
   });
 
