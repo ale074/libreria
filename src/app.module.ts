@@ -25,7 +25,7 @@ import { LibroController } from './modules/libro/controllers/libro.controller';
     }),
     LibroModule,
   ],
-  controllers: [AppController, LibroController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
